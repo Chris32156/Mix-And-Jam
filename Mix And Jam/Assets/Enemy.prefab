@@ -245,7 +245,7 @@ MonoBehaviour:
   speed: 0.75
   stoppingDistance: 3.5
   retreatDistance: 2
-  startTimeBetweenShots: 2
+  startTimeBetweenShots: 2.5
   cannonBall: {fileID: 8504876169783869579, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
   player: {fileID: 0}
   shootFrom: {fileID: 850838506}

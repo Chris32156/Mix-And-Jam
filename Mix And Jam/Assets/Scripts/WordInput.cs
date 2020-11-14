@@ -6,18 +6,23 @@ public class WordInput : MonoBehaviour
 {
 
     WordCheck wordCheck;
+    Game game;
 
     private void Start()
     {
         wordCheck = FindObjectOfType<WordCheck>();
+        game = FindObjectOfType<Game>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (char letter in Input.inputString)
+        if(!game.isPaused)
         {
-            wordCheck.TypeLetter(letter);
+            foreach (char letter in Input.inputString)
+            {
+                wordCheck.TypeLetter(letter);
+            }
         }
     }
 }

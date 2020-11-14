@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SentenceGenerator : MonoBehaviour
 {
-
+    public string[] sentences;
     public string GenerateSentence()
     {
-        string sentence = "Bob Ross Gaming ";
-        return sentence;
+        string sentence = sentences[Random.Range(0, sentences.Length)];
+        return sentence + " ";
     }
 }

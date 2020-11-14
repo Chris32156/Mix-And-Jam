@@ -42,7 +42,18 @@ public class Player : MonoBehaviour
     public void Attack()
     {
         var Enemies = FindObjectsOfType<Enemy>();
-        int index = Random.Range(0, Enemies.Length);
-        Enemies[index].Destroy();
+        if (Enemies.Length > 0)
+        {
+            int index = Random.Range(0, Enemies.Length);
+            Enemies[index].Destroy();
+        }
+    }
+
+    public void GotHit()
+    {
+        Destroy(gameObject);
+         
+        // Game Over
+        game.isPaused = true;
     }
 }
