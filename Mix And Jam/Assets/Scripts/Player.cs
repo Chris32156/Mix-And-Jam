@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Params
     public float speed;
     public float rotationOffset = 0;
+
+    // Declare Vars
+    Game game;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        game = FindObjectOfType<Game>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Movement
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 0;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
 
-        if (mousePos.x != objectPos.x && mousePos.y != objectPos.y)
+        // Check if not paused and can move
+        if (mousePos.x != objectPos.x && mousePos.y != objectPos.y && !game.isPaused)
         {
             mousePos.x = mousePos.x - objectPos.x;
             mousePos.y = mousePos.y - objectPos.y;
