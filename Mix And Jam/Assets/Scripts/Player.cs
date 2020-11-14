@@ -38,4 +38,11 @@ public class Player : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         }
     }
+
+    public void Attack()
+    {
+        var Enemies = FindObjectsOfType<Enemy>();
+        int index = Random.Range(0, Enemies.Length);
+        Enemies[index].Destroy();
+    }
 }

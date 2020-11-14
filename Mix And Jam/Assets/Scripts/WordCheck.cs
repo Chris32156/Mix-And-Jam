@@ -16,6 +16,7 @@ public class WordCheck : MonoBehaviour
     int numOfWords;
 
     SentenceGenerator sentenceGenerator;
+    Player player;
     public TextMeshProUGUI sentenceText;
     public TextMeshProUGUI wordText;
     public TextMeshProUGUI wordText2;
@@ -23,7 +24,7 @@ public class WordCheck : MonoBehaviour
     void Start()
     {
         sentenceGenerator = FindObjectOfType<SentenceGenerator>();
-
+        player = FindObjectOfType<Player>();
         GenerateSentence();
 
         for (int i = 0; i < words.Count; i++)
@@ -81,6 +82,7 @@ public class WordCheck : MonoBehaviour
                 // If Sentence Is done
                 if (currentWord >= numOfWords)
                 {
+                    player.Attack();
                     GenerateSentence();
                     Debug.Log("Correct Sentence");
                 }
