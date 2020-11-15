@@ -15,23 +15,34 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform shootFrom;
 
+    public float YSpawnPos;
+    public float XSpawnPos;
+
+    bool isDead = false;
+
     Game game;
+    Spawner spawner;
     Rigidbody2D rb;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         game = FindObjectOfType<Game>();
+        spawner = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         timeBetweenShots = startTimeBetweenShots;
+
+        RandomizePosition();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!game.isPaused)
+        if (!game.isPaused && !isDead)
         {
             // Go towards
             if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
@@ -69,6 +80,71 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
+        isDead = true;
+        StartCoroutine(Explode());
+    }
+
+    IEnumerator Explode()
+    {
+        anim.SetTrigger("Died");
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+        spawner.CheckIfAllDied();
+    }
+
+    private void RandomizePosition()
+    {
+        //Declare Vars
+        bool isLeftOrRight;
+        int xModifier = 1;
+        int yModifier = 1;
+
+        //Choose Which Border It Spawns On
+        int Border = Random.Range(1, 5); // 1 is Left 2 is Right 3 Is Top 4 is Bottom
+
+        if (Border < 3)
+        {
+            isLeftOrRight = true;
+
+            //Sets It To -
+            if (Border == 1)
+            {
+                xModifier = -1;
+            }
+        }
+        //If It Spawns On Top Or Bottom
+        else
+        {
+            isLeftOrRight = false;
+
+            //Sets It To Negative if Bottom
+            if (Border == 4)
+            {
+                yModifier = -1;
+            }
+        }
+
+        //Declare local Vars
+        float x;
+        float y;
+
+        //If Left Or Right
+        if (isLeftOrRight)
+        {
+            x = XSpawnPos * xModifier;
+            y = Random.Range(YSpawnPos * -1, YSpawnPos);
+        }
+        //If Is Top Or Bottom
+        else
+        {
+            y = YSpawnPos * yModifier;
+            x = Random.Range(XSpawnPos * -1, XSpawnPos);
+        }
+
+        //Fix Bug With Spawning Too High If Postive
+        if (y == YSpawnPos)
+        {
+            y -= 0.5f;
+        }
     }
 }

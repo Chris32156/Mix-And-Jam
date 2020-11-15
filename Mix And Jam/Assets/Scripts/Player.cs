@@ -1,20 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     // Params
     public float speed;
+    public int startingHealth;
     public float rotationOffset = 0;
+    public TextMeshProUGUI LivesText;
+
+    int currentHealth;
 
     // Declare Vars
     Game game;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         game = FindObjectOfType<Game>();
+        anim = GetComponent<Animator>();
+
+        currentHealth = startingHealth;
+        LivesText.SetText("X " + currentHealth.ToString());
     }
 
     // Update is called once per frame
@@ -51,9 +61,22 @@ public class Player : MonoBehaviour
 
     public void GotHit()
     {
-        Destroy(gameObject);
-         
+        currentHealth--;
+        currentHealth = Mathf.Clamp(currentHealth, 0, 99);
+        LivesText.SetText("X " + currentHealth.ToString());
+
         // Game Over
-        game.isPaused = true;
+        if (currentHealth <= 0)
+        {
+            StartCoroutine(Explode());
+            game.isPaused = true;
+        }
+    }
+
+    IEnumerator Explode()
+    {
+        anim.SetTrigger("Died");
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }

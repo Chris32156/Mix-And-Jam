@@ -8,8 +8,8 @@ public class CannonBall : MonoBehaviour
 
     private Vector2 target;
     bool a = false;
-    Vector3 slope;
-
+    float slopeX;
+    float slopeY;
     Player player;
 
     // Start is called before the first frame update
@@ -19,7 +19,8 @@ public class CannonBall : MonoBehaviour
 
         target = new Vector2(player.transform.position.x, player.transform.position.y);
 
-        slope = new Vector3(1, transform.position.y - player.transform.position.y, 1);
+        slopeY = player.transform.position.y - transform.position.y;
+        slopeX = player.transform.position.x - transform.position.x;
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class CannonBall : MonoBehaviour
     {
         if (a)
         {
-            transform.position += new Vector3(slope.x * -0.01f, slope.y * -0.01f, slope.z * -0.01f);
+            transform.position += new Vector3(slopeX * 0.009f, slopeY * 0.009f, 0);
         }
         else
         {
