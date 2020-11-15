@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     [SerializeField] GameObject SettingsMenuCanvas;
     [SerializeField] GameObject PauseMenuPanel;
     [SerializeField] Animator PauseMenuAnim;
+    [SerializeField] Transform ResumeButton;
 
     // Declare Vars
     public bool isPaused = false;
@@ -49,6 +50,7 @@ public class Game : MonoBehaviour
         UnanimatedCanvas.SetActive(false);
         SettingsMenuCanvas.SetActive(false);
         isPaused = false;
+        ResumeButton.transform.localScale = new Vector3(1f, 1f, 1f);
 
         //Reset Animation
         PauseMenuPanel.transform.localScale = new Vector3(0.1f, 0.1f, 1);
