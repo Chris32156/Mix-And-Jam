@@ -66,6 +66,7 @@ public class WordCheck : MonoBehaviour
     public void TypeLetter(char letter)
     {
         Debug.Log(letter);
+        letter = char.ToLower(letter);
         if (letter == words[currentWord][currentLetter])
         {
                 currentLetter++;

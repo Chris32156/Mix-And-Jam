@@ -30770,6 +30770,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Bob Ross Gaming
+  - Arr Im A Pirate
+  - There is more treasure in books than in all the pirates loot on Treasure Island
 --- !u!4 &1643690512
 Transform:
   m_ObjectHideFlags: 0
