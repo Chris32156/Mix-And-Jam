@@ -12,15 +12,20 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI LivesText;
 
     int currentHealth;
+    int score;
 
     // Declare Vars
     Game game;
     Animator anim;
+    SceneManagement scene;
+    AudioManager audio;
 
     // Start is called before the first frame update
     void Start()
     {
         game = FindObjectOfType<Game>();
+        scene = FindObjectOfType<SceneManagement>();
+        audio = FindObjectOfType<AudioManager>();
         anim = GetComponent<Animator>();
 
         currentHealth = startingHealth;
@@ -54,8 +59,10 @@ public class Player : MonoBehaviour
         var Enemies = FindObjectsOfType<Enemy>();
         if (Enemies.Length > 0)
         {
+            score++;
             int index = Random.Range(0, Enemies.Length);
             Enemies[index].Destroy();
+            audio.HitSound();
         }
     }
 
@@ -70,6 +77,14 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Explode());
             game.isPaused = true;
+
+            audio.HitSound();
+            PlayerPrefs.SetInt("Score", score);
+            scene.LoadScene("Game Over");
+        }
+        else
+        {
+            audio.PlayerHitSound();
         }
     }
 
@@ -77,6 +92,7 @@ public class Player : MonoBehaviour
     {
         anim.SetTrigger("Died");
         yield return new WaitForSeconds(1.5f);
+        audio.GameOverSound();
         Destroy(gameObject);
     }
 }
