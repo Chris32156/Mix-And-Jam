@@ -250,6 +250,22 @@ MonoBehaviour:
   cannonBall: {fileID: 8504876169783869579, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
   player: {fileID: 0}
   shootFrom: {fileID: 850838506}
+  Sprites:
+  - {fileID: 21300000, guid: 2fece46749596c2459c16bb7cb4d729e, type: 3}
+  - {fileID: 21300000, guid: 04e20b81af631e3439c7e405336b301e, type: 3}
+  - {fileID: 21300000, guid: 1772a9bd899f88043af38c7d3e8dd270, type: 3}
+  - {fileID: 21300000, guid: 576a23a0e87c0b14bb50210f9e78bb94, type: 3}
+  - {fileID: 21300000, guid: f9ddff961753c3147b7b850d219affe9, type: 3}
+  - {fileID: 21300000, guid: b5e22c4651736c04298d0bd130f05ead, type: 3}
+  - {fileID: 21300000, guid: 3410026051db4254cba3c5f7e728184f, type: 3}
+  - {fileID: 21300000, guid: 799db5f9d48a90146b862797239122a3, type: 3}
+  - {fileID: 21300000, guid: 98adbb4ca9d00f14096af320b97aded2, type: 3}
+  - {fileID: 21300000, guid: 424819c2fc24f00428802f630677073e, type: 3}
+  - {fileID: 21300000, guid: 98b80eb453425a346945258ddc03c317, type: 3}
+  - {fileID: 21300000, guid: 50a5851c7114d914ba6a3ac71d2e77dc, type: 3}
+  - {fileID: 21300000, guid: 4307c0f01dfcd244c99b3f87832d2838, type: 3}
+  - {fileID: 21300000, guid: a3a5cf3ac05f4ef4cb71176694485830, type: 3}
+  - {fileID: 21300000, guid: 7c0dfcab77a2ead4abf744c93d4283cd, type: 3}
   YSpawnPos: 6
   XSpawnPos: 10
 --- !u!95 &1757586337

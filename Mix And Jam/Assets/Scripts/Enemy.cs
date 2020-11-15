@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public GameObject cannonBall;
     public Transform player;
     public Transform shootFrom;
-
+    [SerializeField] Sprite[] Sprites;
     public float YSpawnPos;
     public float XSpawnPos;
 
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     Spawner spawner;
     Rigidbody2D rb;
     Animator anim;
+    SpriteRenderer ship;
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +34,14 @@ public class Enemy : MonoBehaviour
         spawner = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ship = GetComponent<SpriteRenderer>();
 
         timeBetweenShots = startTimeBetweenShots;
 
         RandomizePosition();
+
+        int x = Random.Range(0, Sprites.Length);
+        ship.sprite = Sprites[x];
     }
 
     // Update is called once per frame
@@ -146,5 +151,7 @@ public class Enemy : MonoBehaviour
         {
             y -= 0.5f;
         }
+
+        transform.position = new Vector2(x, y);
     }
 }
