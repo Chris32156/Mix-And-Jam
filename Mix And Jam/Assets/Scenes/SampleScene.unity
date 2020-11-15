@@ -12214,7 +12214,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Even pirates before they attack another ship hoist a black flag.     \r"
+  m_text: "There is more treasure in books than in all the pirates' loot on Treasure
+    Island.  \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f396a69a2504744429d8e00e8daa2434, type: 2}
   m_sharedMaterial: {fileID: 7527182278317805366, guid: f396a69a2504744429d8e00e8daa2434, type: 2}
@@ -30768,37 +30769,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sentences:
-<<<<<<< Updated upstream
   - Bob Ross Gaming
   - Arr Im A Pirate
   - There is more treasure in books than in all the pirates loot on Treasure Island
-=======
-  - There is more treasure in books than in all the pirates loot on Treasure Island
-  - Even pirates before they attack another ship hoist a black flag
-  - When a pirate grows rich enough they make him a prince
-  - Lets jump on board and cut them to pieces
-  - A pirate spreading misery and ruin over the face of the ocean
-  - It is when pirates count their booty that they become mere thieves
-  - Drinking rum before 10 am makes you a pirate not an alcoholic
-  - Every generation welcomes the pirates from the last
-  - 'Its more fun to be a pirate than to join the Navy '
-  - 'If theres a man among ye come up and fight like the man ye are to be '
-  - Nobody will believe its possible until we show them
-  - Under a black flag we sail and the sea shall be our empire
-  - If rum cant fix it you are not using enough rum
-  - May your blade always be wet and powder dry
-  - There is nothing like the smell of cannon fire in the morning
-  - I am a man of fortune and must seek my fortune
-  - Shiver me timbers
-  - Give me freedom or give me the rope
-  - The pirate crew disbanded in terror
-  - Not all treasure is silver and gold
-  - The rougher the seas the smoother we sail
-  - Work like a captain play like a pirate
-  - Im a pirate Im my own captain
-  - Take what you can give nothing back
-  - A friend can betray you but an enemy will always stay the same
->>>>>>> Stashed changes
 --- !u!4 &1643690512
 Transform:
   m_ObjectHideFlags: 0
@@ -32284,18 +32257,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 444682856293452769, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 444682856293452769, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_Size.x
-      value: 0.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 444682856293452769, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_Size.y
-      value: 0.75
-      objectReference: {fileID: 0}
     - target: {fileID: 3682162757940282020, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: player
       value: 
@@ -32306,11 +32267,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.149
+      value: -10.54
       objectReference: {fileID: 0}
     - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.612
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32347,14 +32308,6 @@ PrefabInstance:
     - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
@@ -41265,6 +41218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Player '
       objectReference: {fileID: 0}
+    - target: {fileID: 1728293441166773748, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773750, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -41318,10 +41275,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 444682856293452769, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3682162757940282020, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: player
       value: 
@@ -41373,14 +41326,6 @@ PrefabInstance:
     - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182912706948544324, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}

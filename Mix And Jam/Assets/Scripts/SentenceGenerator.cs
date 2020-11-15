@@ -5,22 +5,9 @@ using UnityEngine;
 public class SentenceGenerator : MonoBehaviour
 {
     public string[] sentences;
-    int LastIndex = -1;
     public string GenerateSentence()
     {
-        string sentence = sentences[RandomNumber()];
+        string sentence = sentences[Random.Range(0, sentences.Length)];
         return sentence + " ";
-    }
-
-    int RandomNumber()
-    {
-        int x = Random.Range(0, sentences.Length);
-        if (x == LastIndex)
-        {
-            RandomNumber();
-        }
-
-        LastIndex = x;
-        return x;
     }
 }

@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     Game game;
     Rigidbody2D rb;
-    Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +24,6 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         game = FindObjectOfType<Game>();
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
 
         timeBetweenShots = startTimeBetweenShots;
     }
@@ -71,13 +69,6 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
-        StartCoroutine(Explode());
-    }
-
-    IEnumerator Explode()
-    {
-        anim.SetTrigger("Died");
-        yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);
     }
 }

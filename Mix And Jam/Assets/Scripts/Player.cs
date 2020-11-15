@@ -6,22 +6,15 @@ public class Player : MonoBehaviour
 {
     // Params
     public float speed;
-    public int startingHealth;
     public float rotationOffset = 0;
-
-    int currentHealth;
 
     // Declare Vars
     Game game;
-    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         game = FindObjectOfType<Game>();
-        anim = GetComponent<Animator>();
-
-        currentHealth = startingHealth;
     }
 
     // Update is called once per frame
@@ -58,20 +51,9 @@ public class Player : MonoBehaviour
 
     public void GotHit()
     {
-        currentHealth--;
-
-        // Game Over
-        if (currentHealth <= 0)
-        {
-            StartCoroutine(Explode());
-            game.isPaused = true;
-        }
-    }
-
-    IEnumerator Explode()
-    {
-        anim.SetTrigger("Died");
-        yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);
+         
+        // Game Over
+        game.isPaused = true;
     }
 }

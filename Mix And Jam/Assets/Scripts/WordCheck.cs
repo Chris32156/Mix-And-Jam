@@ -54,7 +54,7 @@ public class WordCheck : MonoBehaviour
 
         for (int i = 0; i < sentence.Length; i++)
         {
-            if (sentence[i] == ' ' && index != i)
+            if (sentence[i] == ' ')
             {
                 words.Add(sentence.Substring(index, i - index).ToLower());
                 index = i + 1;
