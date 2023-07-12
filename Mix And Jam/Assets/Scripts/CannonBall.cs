@@ -17,10 +17,11 @@ public class CannonBall : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
 
-        target = new Vector2(player.transform.position.x, player.transform.position.y);
+        //target = new Vector2(player.transform.position.x, player.transform.position.y);
 
         slopeY = player.transform.position.y - transform.position.y;
         slopeX = player.transform.position.x - transform.position.x;
+        target = new Vector2(slopeX * 10000, slopeY * 10000);
     }
 
     // Update is called once per frame

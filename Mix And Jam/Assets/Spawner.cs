@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Spawner : MonoBehaviour
 {
     public int startingAmmount;
     public GameObject Enemy;
+    public TextMeshProUGUI WaveText;
 
     int CurrentWave;
     // Start is called before the first frame update
@@ -33,7 +35,7 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(Enemy);
         }
-
+        WaveText.SetText("Wave " + CurrentWave);
         CurrentWave++;
     }
 }

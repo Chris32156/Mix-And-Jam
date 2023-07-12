@@ -21,7 +21,10 @@ public class MainMenu : MonoBehaviour
     public void PlayButton()
     {
         scene.LoadScene("Game");
-        audio.PlayButtonSound();
+        if (audio)
+        {
+            audio.PlayButtonSound();
+        }
     }
 
     public void HowToPlay()

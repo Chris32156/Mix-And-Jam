@@ -10,9 +10,13 @@ public class Player : MonoBehaviour
     public int startingHealth;
     public float rotationOffset = 0;
     public TextMeshProUGUI LivesText;
+    public float shootCooldown;
+    public GameObject DisabledShoot;
+    public TextMeshProUGUI DisabledShootText;
+    public int score;
 
+    float lastShot = -20;
     int currentHealth;
-    int score;
 
     // Declare Vars
     Game game;
@@ -33,36 +37,65 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // Movement
+        if (Time.time - lastShot > shootCooldown)
+        {
+            DisabledShoot.SetActive(false);
+        }
+        else
+        {
+            DisabledShoot.SetActive(true);
+            DisabledShootText.SetText((shootCooldown - (Time.time - lastShot)).ToString("F1"));
+        }
+        /* Movement
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 0;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
-
         // Check if not paused and can move
         if (mousePos.x != objectPos.x && mousePos.y != objectPos.y && !game.isPaused)
         {
             mousePos.x = mousePos.x - objectPos.x;
             mousePos.y = mousePos.y - objectPos.y;
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + rotationOffset));
+            // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + rotationOffset));
 
             Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPos.z = 0;
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-        }
+            // transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+        } */
     }
 
     public void Attack()
     {
-        var Enemies = FindObjectsOfType<Enemy>();
-        if (Enemies.Length > 0)
+        if (Time.time - lastShot > shootCooldown)
         {
-            score++;
-            int index = Random.Range(0, Enemies.Length);
-            Enemies[index].Destroy();
-            audio.HitSound();
+            lastShot = Time.time;
+
+            var Enemies = FindObjectsOfType<Enemy>();
+            float minDist = Mathf.Infinity;
+            Enemy tMin = null;
+
+            foreach (Enemy Enemy in Enemies)
+            {
+                Transform t = Enemy.transform;
+                float dist = Vector3.Distance(t.position, transform.position);
+                if (dist < minDist)
+                {
+                    tMin = Enemy;
+                    minDist = dist;
+                }
+            }
+
+            if (tMin != null)
+            {
+                score++;
+                tMin.Destroy();
+                if (audio)
+                {
+                    audio.HitSound();
+                }
+            }
         }
     }
 
@@ -78,13 +111,19 @@ public class Player : MonoBehaviour
             StartCoroutine(Explode());
             game.isPaused = true;
 
-            audio.HitSound();
+            if (audio)
+            {
+                audio.HitSound();
+            }
             PlayerPrefs.SetInt("Score", score);
             scene.LoadScene("Game Over");
         }
         else
         {
-            audio.PlayerHitSound();
+            if (audio)
+            {
+                audio.PlayerHitSound();
+            }
         }
     }
 
@@ -92,7 +131,10 @@ public class Player : MonoBehaviour
     {
         anim.SetTrigger("Died");
         yield return new WaitForSeconds(1.5f);
-        audio.GameOverSound();
+        if (audio)
+        {
+            audio.GameOverSound();
+        }
         Destroy(gameObject);
     }
 }
