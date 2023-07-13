@@ -13,9 +13,7 @@ public class Player : MonoBehaviour
     public float shootCooldown;
     public GameObject DisabledShoot;
     public TextMeshProUGUI DisabledShootText;
-    public TextMeshProUGUI GoldText;
     public int score;
-    public int gold = 0;
 
     float lastShot = -20;
     int currentHealth;
@@ -36,7 +34,6 @@ public class Player : MonoBehaviour
 
         currentHealth = startingHealth;
         LivesText.SetText("X " + currentHealth.ToString());
-        GoldText.SetText(gold.ToString());
     }
 
     // Update is called once per frame
@@ -93,8 +90,6 @@ public class Player : MonoBehaviour
             if (tMin != null)
             {
                 score++;
-                gold += tMin.goldDropped;
-                GoldText.SetText(gold.ToString());
                 tMin.Destroy();
                 if (audio)
                 {
