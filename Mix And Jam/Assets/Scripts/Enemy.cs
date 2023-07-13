@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float stoppingDistance;
     public float retreatDistance;
-
+    public int goldDropped = 5;
     private float timeBetweenShots;
     public float startTimeBetweenShots;
 

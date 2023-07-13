@@ -94537,6 +94537,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
+      propertyPath: GoldText
+      value: 
+      objectReference: {fileID: 1650543471}
+    - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: LivesText
       value: 
       objectReference: {fileID: 1473996034}
