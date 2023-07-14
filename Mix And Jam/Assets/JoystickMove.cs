@@ -13,7 +13,6 @@ public class JoystickMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerSpeed = playerSpeed * 3;
         rb = GetComponent<Rigidbody2D>();
     }
 

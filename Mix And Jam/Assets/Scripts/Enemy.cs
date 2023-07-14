@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float stoppingDistance;
     public float retreatDistance;
+    public int GoldDropped = 5;
 
     private float timeBetweenShots;
     public float startTimeBetweenShots;
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour
     public float YSpawnPos;
     public float XSpawnPos;
 
-    bool isDead = false;
+    public bool isDead = false;
 
     Game game;
     Spawner spawner;

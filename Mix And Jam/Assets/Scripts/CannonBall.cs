@@ -19,8 +19,8 @@ public class CannonBall : MonoBehaviour
 
         //target = new Vector2(player.transform.position.x, player.transform.position.y);
 
-        slopeY = player.transform.position.y - transform.position.y;
-        slopeX = player.transform.position.x - transform.position.x;
+        slopeY = player.transform.position.y - transform.position.y + Random.Range(0, 1.25f) * player.transform.GetComponent<Rigidbody2D>().velocity.y;
+        slopeX = player.transform.position.x - transform.position.x + Random.Range(0, 1.25f)  * player.transform.GetComponent<Rigidbody2D>().velocity.x;
         target = new Vector2(slopeX * 10000, slopeY * 10000);
     }
 

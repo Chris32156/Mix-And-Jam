@@ -11,11 +11,33 @@ public class Player : MonoBehaviour
     public float rotationOffset = 0;
     public TextMeshProUGUI LivesText;
     public float shootCooldown;
+    public float speedUpCooldown;
+    public float healCooldown;
+    public float KillEverythingCooldown;
+    public bool speedUpUnlocked;
+    public bool healUnlocked;
+    public bool killEverythingUnlocked;
     public GameObject DisabledShoot;
     public TextMeshProUGUI DisabledShootText;
+    public GameObject DisabledSpeedUp;
+    public TextMeshProUGUI DisabledSpeedUpText;
+    public GameObject DisabledHeal;
+    public GameObject KillLock;
+    public GameObject HealLock;
+    public GameObject SpeedupLock;
+    public TextMeshProUGUI DisabledHealText;
+    public GameObject DisabledKill;
+    public TextMeshProUGUI DisabledKillText;
+    public TextMeshProUGUI GoldText;
+    public JoystickMove joystick;
     public int score;
+    public int Gold = 0;
 
-    float lastShot = -20;
+    float lastShot = -200;
+    float lastSpeedUp = -200;
+    float lastHeal = 0;
+    float lastKillEverything = -200;
+    float baseSpeed;
     int currentHealth;
 
     // Declare Vars
@@ -23,6 +45,7 @@ public class Player : MonoBehaviour
     Animator anim;
     SceneManagement scene;
     AudioManager audio;
+    Spawner spawn;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +54,28 @@ public class Player : MonoBehaviour
         scene = FindObjectOfType<SceneManagement>();
         audio = FindObjectOfType<AudioManager>();
         anim = GetComponent<Animator>();
+        spawn = FindObjectOfType<Spawner>();
 
+        baseSpeed = joystick.playerSpeed;
         currentHealth = startingHealth;
         LivesText.SetText("X " + currentHealth.ToString());
+        GoldText.SetText(Gold.ToString());
+
+        if(!speedUpUnlocked)
+        {
+            SpeedupLock.SetActive(true);
+            DisabledSpeedUp.SetActive(false);
+        }
+        if(!healUnlocked)
+        {
+            HealLock.SetActive(true);
+            DisabledHeal.SetActive(false);
+        }
+        if(!killEverythingUnlocked)
+        {
+            KillLock.SetActive(true);
+            DisabledKill.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -48,6 +90,37 @@ public class Player : MonoBehaviour
             DisabledShoot.SetActive(true);
             DisabledShootText.SetText((shootCooldown - (Time.time - lastShot)).ToString("F1"));
         }
+
+        if (Time.time - lastSpeedUp > speedUpCooldown)
+        {
+            DisabledSpeedUp.SetActive(false);
+        }
+        else
+        {
+            DisabledSpeedUp.SetActive(true);
+            DisabledSpeedUpText.SetText((speedUpCooldown - (Time.time - lastSpeedUp)).ToString("F1"));
+        }
+
+        if (lastHeal + healCooldown <= spawn.CurrentWave - 1)
+        {
+            DisabledHeal.SetActive(false);
+        }
+        else
+        {
+            DisabledHeal.SetActive(true);
+            DisabledHealText.SetText((lastHeal + healCooldown - spawn.CurrentWave + 1).ToString() + "Waves");
+        }
+
+        if (Time.time - lastKillEverything > KillEverythingCooldown)
+        {
+            DisabledKill.SetActive(false);
+        }
+        else
+        {
+            DisabledKill.SetActive(true);
+            DisabledKillText.SetText((KillEverythingCooldown - (Time.time - lastKillEverything)).ToString("F1"));
+        }
+
         /* Movement
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 0;
@@ -70,7 +143,6 @@ public class Player : MonoBehaviour
     {
         if (Time.time - lastShot > shootCooldown)
         {
-            lastShot = Time.time;
 
             var Enemies = FindObjectsOfType<Enemy>();
             float minDist = Mathf.Infinity;
@@ -78,25 +150,90 @@ public class Player : MonoBehaviour
 
             foreach (Enemy Enemy in Enemies)
             {
-                Transform t = Enemy.transform;
-                float dist = Vector3.Distance(t.position, transform.position);
-                if (dist < minDist)
+                if (!Enemy.isDead)
                 {
-                    tMin = Enemy;
-                    minDist = dist;
+                    Transform t = Enemy.transform;
+                    float dist = Vector3.Distance(t.position, transform.position);
+                    if (dist < minDist)
+                    {
+                        tMin = Enemy;
+                        minDist = dist;
+                    }
                 }
             }
 
-            if (tMin != null)
+            if (tMin != null && minDist < 10)
             {
+                lastShot = Time.time;
                 score++;
                 tMin.Destroy();
                 if (audio)
                 {
                     audio.HitSound();
                 }
+                AddGold(tMin.GoldDropped);
             }
         }
+    }
+
+    public void SpeedUp()
+    {
+        if (Time.time - lastSpeedUp > speedUpCooldown && speedUpUnlocked)
+        {
+            lastSpeedUp = Time.time;
+            joystick.playerSpeed = joystick.playerSpeed * 2;
+            Invoke("SpeedupEnd", 10);
+        }
+    }
+
+    public void Heal()
+    {
+        if(lastHeal + healCooldown <= spawn.CurrentWave - 1 && healUnlocked && currentHealth < startingHealth)
+        {
+            lastHeal = spawn.CurrentWave - 1;
+            currentHealth++;
+            LivesText.SetText("X " + currentHealth.ToString());
+        }
+    }
+
+    public void KillEverything()
+    {
+        if (Time.time - lastKillEverything > KillEverythingCooldown && killEverythingUnlocked)
+        {
+            var Enemies = FindObjectsOfType<Enemy>();
+            Enemy tMin = null;
+
+            foreach (Enemy Enemy in Enemies)
+            {
+                if (!Enemy.isDead)
+                {
+                    Transform t = Enemy.transform;
+                    float dist = Vector3.Distance(t.position, transform.position);
+                    if (dist < 10)
+                    {
+                        lastKillEverything = Time.time;
+                        score++;
+                        Enemy.Destroy();
+                        if (audio)
+                        {
+                            audio.HitSound();
+                        }
+                        AddGold(Enemy.GoldDropped);
+                        Invoke("checkIfNextRound", 2);
+                    }
+                }
+            }
+        }
+    }
+
+    void checkIfNextRound()
+    {
+        spawn.CheckIfAllDied();
+    }
+
+    void SpeedupEnd()
+    {
+        joystick.playerSpeed = baseSpeed;
     }
 
     public void GotHit()
@@ -136,5 +273,11 @@ public class Player : MonoBehaviour
             audio.GameOverSound();
         }
         Destroy(gameObject);
+    }
+
+    public void AddGold(int gold)
+    {
+        Gold += gold;
+        GoldText.SetText(Gold.ToString());
     }
 }

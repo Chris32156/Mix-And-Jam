@@ -8,12 +8,15 @@ public class Spawner : MonoBehaviour
     public int startingAmmount;
     public GameObject Enemy;
     public TextMeshProUGUI WaveText;
+    public int CurrentWave;
 
-    int CurrentWave;
+    Player player;
+
     // Start is called before the first frame update
     void Start()
     {
         CurrentWave = startingAmmount;
+        player = FindObjectOfType<Player>();
 
         StartWave();
     }
@@ -21,10 +24,19 @@ public class Spawner : MonoBehaviour
     public void CheckIfAllDied()
     {
         var enemies = FindObjectsOfType<Enemy>();
-        Debug.Log("A");
-        Debug.Log("Enemy Length: " + enemies.Length.ToString());
-        if(enemies.Length <= 1)
+        int numOfEnemies = 0;
+
+        foreach (Enemy Enemy in enemies)
         {
+            if (!Enemy.isDead)
+            {
+                numOfEnemies++;
+            }
+        }
+
+        if (numOfEnemies == 0)
+        {
+            player.AddGold(CurrentWave - 1);
             StartWave();
         }
     }
