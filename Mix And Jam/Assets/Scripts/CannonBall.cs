@@ -5,23 +5,27 @@ using UnityEngine;
 public class CannonBall : MonoBehaviour
 {
     public float speed;
-
+    public int Damage = 1;
     private Vector2 target;
     bool a = false;
+
     float slopeX;
     float slopeY;
     Player player;
+    Spawner spawner;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player>();
-
+        spawner = FindObjectOfType<Spawner>();
         //target = new Vector2(player.transform.position.x, player.transform.position.y);
 
         slopeY = player.transform.position.y - transform.position.y + Random.Range(0, 1.25f) * player.transform.GetComponent<Rigidbody2D>().velocity.y;
         slopeX = player.transform.position.x - transform.position.x + Random.Range(0, 1.25f)  * player.transform.GetComponent<Rigidbody2D>().velocity.x;
         target = new Vector2(slopeX * 10000, slopeY * 10000);
+
+        speed += spawner.CurrentWave / 10 * 0.5f;
     }
 
     // Update is called once per frame
@@ -52,7 +56,7 @@ public class CannonBall : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             DestroyProjectile();
-            player.GotHit();
+            player.GotHit(Damage);
         }
     }
 }

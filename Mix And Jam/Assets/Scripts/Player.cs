@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public JoystickMove joystick;
     public int score;
     public int Gold = 0;
+    public bool isDead = false;
 
     float lastShot = -200;
     float lastSpeedUp = -200;
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
     Animator anim;
     SceneManagement scene;
     AudioManager audio;
+    Rigidbody2D rb;
     Spawner spawn;
 
     // Start is called before the first frame update
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
         audio = FindObjectOfType<AudioManager>();
         anim = GetComponent<Animator>();
         spawn = FindObjectOfType<Spawner>();
+        rb = GetComponent<Rigidbody2D>();
 
         baseSpeed = joystick.playerSpeed;
         currentHealth = startingHealth;
@@ -108,7 +111,7 @@ public class Player : MonoBehaviour
         else
         {
             DisabledHeal.SetActive(true);
-            DisabledHealText.SetText((lastHeal + healCooldown - spawn.CurrentWave + 1).ToString() + "Waves");
+            DisabledHealText.SetText((lastHeal + healCooldown - spawn.CurrentWave + 1).ToString() + " Waves");
         }
 
         if (Time.time - lastKillEverything > KillEverythingCooldown)
@@ -141,7 +144,7 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        if (Time.time - lastShot > shootCooldown)
+        if (Time.time - lastShot > shootCooldown && !isDead)
         {
 
             var Enemies = FindObjectsOfType<Enemy>();
@@ -178,7 +181,7 @@ public class Player : MonoBehaviour
 
     public void SpeedUp()
     {
-        if (Time.time - lastSpeedUp > speedUpCooldown && speedUpUnlocked)
+        if (Time.time - lastSpeedUp > speedUpCooldown && speedUpUnlocked && !isDead)
         {
             lastSpeedUp = Time.time;
             joystick.playerSpeed = joystick.playerSpeed * 2;
@@ -188,7 +191,7 @@ public class Player : MonoBehaviour
 
     public void Heal()
     {
-        if(lastHeal + healCooldown <= spawn.CurrentWave - 1 && healUnlocked && currentHealth < startingHealth)
+        if(lastHeal + healCooldown <= spawn.CurrentWave - 1 && healUnlocked && currentHealth < startingHealth && !isDead)
         {
             lastHeal = spawn.CurrentWave - 1;
             currentHealth++;
@@ -198,7 +201,7 @@ public class Player : MonoBehaviour
 
     public void KillEverything()
     {
-        if (Time.time - lastKillEverything > KillEverythingCooldown && killEverythingUnlocked)
+        if (Time.time - lastKillEverything > KillEverythingCooldown && killEverythingUnlocked && !isDead)
         {
             var Enemies = FindObjectsOfType<Enemy>();
             Enemy tMin = null;
@@ -236,18 +239,19 @@ public class Player : MonoBehaviour
         joystick.playerSpeed = baseSpeed;
     }
 
-    public void GotHit()
+    public void GotHit(int damage)
     {
-        currentHealth--;
+        currentHealth-= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, 99);
         LivesText.SetText("X " + currentHealth.ToString());
 
         // Game Over
         if (currentHealth <= 0)
         {
+            rb.velocity = Vector3.zero;
             StartCoroutine(Explode());
             game.isPaused = true;
-
+            isDead = true;
             if (audio)
             {
                 audio.HitSound();

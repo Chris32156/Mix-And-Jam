@@ -15,11 +15,15 @@ public class Enemy : MonoBehaviour
     public GameObject cannonBall;
     public Transform player;
     public Transform shootFrom;
+    public Color damaged;
+    public Color basic;
+    public SpriteRenderer shipSprite;
     [SerializeField] Sprite[] Sprites;
     public float YSpawnPos;
     public float XSpawnPos;
 
     public bool isDead = false;
+    public int health = 1;
 
     Game game;
     Spawner spawner;
@@ -86,8 +90,22 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
-        isDead = true;
-        StartCoroutine(Explode());
+        health--;
+        if (health <= 0)
+        {
+            isDead = true;
+            StartCoroutine(Explode());
+        }
+        else
+        {
+            shipSprite.color = damaged;
+            Invoke("revertColor", 0.3f);
+        }
+    }
+
+    void revertColor()
+    {
+        shipSprite.color = basic;
     }
 
     IEnumerator Explode()
