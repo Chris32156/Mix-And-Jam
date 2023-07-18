@@ -46,7 +46,7 @@ public class Coins : MonoBehaviour
 
         HealthLevelText.SetText("LV " + HealthLevel.ToString());
         HealthCoinText.SetText((HealthLevel * 100).ToString());
-        HealthModifierText.SetText((1 + 0.05 * (HealthLevel - 1)).ToString() + "x");
+        HealthModifierText.SetText((5 + HealthLevel - 1).ToString() + " Hits");
     }
 
     public void AttackSpeedUpgrade()
