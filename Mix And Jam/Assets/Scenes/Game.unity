@@ -5066,7 +5066,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 12}
+  m_Size: {x: 0.96, y: 30}
   m_EdgeRadius: 0
 --- !u!4 &117289188
 Transform:
@@ -5076,7 +5076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117289186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69, y: 0, z: 0}
+  m_LocalPosition: {x: -45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 5.26, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33996,7 +33996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708787382}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -27.5, z: 0}
+  m_LocalPosition: {x: 0, y: -45, z: 0}
   m_LocalScale: {x: 1, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34044,7 +34044,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 12}
+  m_Size: {x: 0.96, y: 30}
   m_EdgeRadius: 0
 --- !u!4 &712948083
 Transform:
@@ -34054,7 +34054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712948081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68, y: 0, z: 0}
+  m_LocalPosition: {x: 45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 5.26, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38303,7 +38303,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823148791}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0e610d380b8dfb3489df230e1a1978f2, type: 2}
   m_CullingMode: 0
@@ -61291,8 +61291,10 @@ MonoBehaviour:
   startingAmmount: 1
   Enemy: {fileID: 3985936626402270849, guid: cbbc324415a0d3241928eeda5e176d1c, type: 3}
   Boss1: {fileID: 5457816343458964328, guid: d02d24a15d54bf8418111c2115d10aad, type: 3}
+  Boss2: {fileID: 5288282363825626720, guid: 4a55415000717d1479dca921fdd0f905, type: 3}
+  Boss3: {fileID: 6644372131152600404, guid: 9c5e5a85e5a86a44787620de862d3a07, type: 3}
   WaveText: {fileID: 683626120}
-  CurrentWave: 0
+  CurrentWave: 24
 --- !u!4 &1373899719
 Transform:
   m_ObjectHideFlags: 0
@@ -80428,7 +80430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810611235}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 27.5, z: 0}
+  m_LocalPosition: {x: 0, y: 45, z: 0}
   m_LocalScale: {x: 1, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

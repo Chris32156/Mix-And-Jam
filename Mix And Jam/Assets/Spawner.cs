@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     public int startingAmmount;
     public GameObject Enemy;
     public GameObject Boss1;
+    public GameObject Boss2;
+    public GameObject Boss3;
     public TextMeshProUGUI WaveText;
     public int CurrentWave;
 
@@ -45,7 +47,41 @@ public class Spawner : MonoBehaviour
     void StartWave()
     {
         int boss1Spawns = 0;
+        int boss2Spawns = 0;
+        int boss3Spawns = 0;
+
         if (CurrentWave % 5 == 0)
+        {
+            boss1Spawns = CurrentWave / 5;
+        }
+        if (CurrentWave % 10 == 0)
+        {
+            boss2Spawns = CurrentWave / 10;
+        }
+        if (CurrentWave % 25 == 0)
+        {
+            boss3Spawns = CurrentWave / 25;
+        }
+
+        for (int i = 0; i < boss1Spawns; i++)
+        {
+            Instantiate(Boss1);
+        }
+        for (int i = 0; i < boss2Spawns; i++)
+        {
+            Instantiate(Boss2);
+        }
+        for (int i = 0; i < boss3Spawns; i++)
+        {
+            Instantiate(Boss3);
+        }
+
+        for (int i = 0; i < CurrentWave - boss1Spawns - boss2Spawns - boss3Spawns; i++)
+        {
+            Instantiate(Enemy);
+        }
+
+        /*if (CurrentWave % 5 == 0)
         {
             boss1Spawns = CurrentWave / 5;
             for (int i = 0; i < boss1Spawns; i++)
@@ -63,7 +99,7 @@ public class Spawner : MonoBehaviour
             {
                 Instantiate(Enemy);
             }
-        }
+        } */
         WaveText.SetText("Wave " + CurrentWave);
         CurrentWave++;
     }

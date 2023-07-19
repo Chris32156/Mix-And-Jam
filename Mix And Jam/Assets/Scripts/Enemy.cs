@@ -119,58 +119,30 @@ public class Enemy : MonoBehaviour
     private void RandomizePosition()
     {
         //Declare Vars
-        bool isLeftOrRight;
-        int xModifier = 1;
-        int yModifier = 1;
+        int xModifier;
+        int yModifier;
+        float x = 43;
+        float y = 43;
 
-        //Choose Which Border It Spawns On
-        int Border = Random.Range(1, 5); // 1 is Left 2 is Right 3 Is Top 4 is Bottom
-
-        if (Border < 3)
+        while (x >= 43 || x <= -43 || y >= 43 || y <= -43)
         {
-            isLeftOrRight = true;
+            x = Random.Range(5f, 10f);
+            y = Random.Range(5f, 10f);
+            xModifier = Random.Range(0, 2);
+            yModifier = Random.Range(0, 2);
 
-            //Sets It To -
-            if (Border == 1)
+            if (xModifier == 1)
             {
-                xModifier = -1;
+                x = x * -1;
             }
-        }
-        //If It Spawns On Top Or Bottom
-        else
-        {
-            isLeftOrRight = false;
-
-            //Sets It To Negative if Bottom
-            if (Border == 4)
+            if (yModifier == 1)
             {
-                yModifier = -1;
+                y = y * -1;
             }
-        }
 
-        //Declare local Vars
-        float x;
-        float y;
-
-        //If Left Or Right
-        if (isLeftOrRight)
-        {
-            x = XSpawnPos * xModifier;
-            y = Random.Range(YSpawnPos * -1, YSpawnPos);
+            x += player.transform.localPosition.x;
+            y += player.transform.localPosition.y;
         }
-        //If Is Top Or Bottom
-        else
-        {
-            y = YSpawnPos * yModifier;
-            x = Random.Range(XSpawnPos * -1, XSpawnPos);
-        }
-
-        //Fix Bug With Spawning Too High If Postive
-        if (y == YSpawnPos)
-        {
-            y -= 0.5f;
-        }
-
         transform.position = new Vector2(x, y);
     }
 }

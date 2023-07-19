@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504876169783869557, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8504876169783869557, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8504876169783869557, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504876169783869579, guid: d3edbdbe23536ba4495f50b433b2e452, type: 3}
       propertyPath: m_Name
-      value: cannonBall
+      value: cannonBall Boss1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
