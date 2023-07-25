@@ -16,6 +16,10 @@ public class Coins : MonoBehaviour
     public TextMeshProUGUI SpeedModifierText;
     public TextMeshProUGUI HealthModifierText;
 
+    public TextMeshProUGUI SpeedUpText;
+    public TextMeshProUGUI HealText;
+    public TextMeshProUGUI SkullstormText;
+
     public int NumberOfCoins = 0;
     public int AttackLevel = 0;
     public int SpeedLevel = 0;
@@ -47,11 +51,24 @@ public class Coins : MonoBehaviour
         HealthLevelText.SetText("LV " + HealthLevel.ToString());
         HealthCoinText.SetText((HealthLevel * 100).ToString());
         HealthModifierText.SetText((5 + HealthLevel - 1).ToString() + " Hits");
+
+        if(PlayerPrefs.GetInt("SpeedUpUnlock", 0) == 1)
+        {
+            SpeedUpText.SetText("Bought");
+        }
+        if (PlayerPrefs.GetInt("HealUnlock", 0) == 1)
+        {
+            HealText.SetText("Bought");
+        }
+        if (PlayerPrefs.GetInt("SkullstormUnlock", 0) == 1)
+        {
+            SkullstormText.SetText("Bought");
+        }
     }
 
     public void AttackSpeedUpgrade()
     {
-        if (NumberOfCoins > AttackLevel * 100)
+        if (NumberOfCoins >= AttackLevel * 100)
         {
             NumberOfCoins -= AttackLevel * 100;
             AttackLevel++;
@@ -62,7 +79,7 @@ public class Coins : MonoBehaviour
 
     public void SpeedUpgrade()
     {
-        if (NumberOfCoins > SpeedLevel * 100)
+        if (NumberOfCoins >= SpeedLevel * 100)
         {
             NumberOfCoins -= SpeedLevel * 100;
             SpeedLevel++;
@@ -73,11 +90,41 @@ public class Coins : MonoBehaviour
 
     public void HealthUpgrade()
     {
-        if (NumberOfCoins > HealthLevel * 100)
+        if (NumberOfCoins >= HealthLevel * 100)
         {
             NumberOfCoins -= HealthLevel * 100;
             HealthLevel++;
             PlayerPrefs.SetInt("Health Level", HealthLevel);
+            InitalizeValues();
+        }
+    }
+
+    public void SpeedUpUnlock()
+    {
+        if (NumberOfCoins >= 250 && PlayerPrefs.GetInt("SpeedUpUnlock", 0) == 0)
+        {
+            NumberOfCoins -= 250;
+            PlayerPrefs.SetInt("SpeedUpUnlock", 1);
+            InitalizeValues();
+        }
+    }
+
+    public void HealUnlock()
+    {
+        if (NumberOfCoins >= 750 && PlayerPrefs.GetInt("HealUnlock", 0) == 0)
+        {
+            NumberOfCoins -= 750;
+            PlayerPrefs.SetInt("HealUnlock", 1);
+            InitalizeValues();
+        }
+    }
+
+    public void SkullstormUnlock()
+    {
+        if (NumberOfCoins >= 1500 && PlayerPrefs.GetInt("SkullstormUnlock", 0) == 0)
+        {
+            NumberOfCoins -= 1500;
+            PlayerPrefs.SetInt("SkullstormUnlock", 1);
             InitalizeValues();
         }
     }

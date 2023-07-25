@@ -94776,7 +94776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: healUnlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: DisabledShoot
@@ -94800,7 +94800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: speedUpUnlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: DisabledHealText
@@ -94824,7 +94824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773737, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: killEverythingUnlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728293441166773748, guid: b78ed0ec4cd95df49a8abfdeae2e1b6b, type: 3}
       propertyPath: m_Name

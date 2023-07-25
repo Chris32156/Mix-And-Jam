@@ -64,7 +64,11 @@ public class Player : MonoBehaviour
         LivesText.SetText("X " + currentHealth.ToString());
         GoldText.SetText(Gold.ToString());
 
-        if(!speedUpUnlocked)
+        speedUpUnlocked = PlayerPrefs.GetInt("SpeedUpUnlock", 0) == 1;
+        healUnlocked = PlayerPrefs.GetInt("HealUnlock", 0) == 1;
+        killEverythingUnlocked = PlayerPrefs.GetInt("SkullstormUnlock", 0) == 1;
+
+        if (!speedUpUnlocked)
         {
             SpeedupLock.SetActive(true);
             DisabledSpeedUp.SetActive(false);

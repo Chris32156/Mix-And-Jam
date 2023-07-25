@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject htpButton;
-    public GameObject mainMenu;
-    public GameObject htpCanvas;
-    public GameObject back;
+    public GameObject MainMenuCanvas;
+    public GameObject AbilitiesCanvas;
+    public Animator MainMenuAnim;
+    public Animator AbilitiesAnim;
+
+    bool pressed = false;
+    bool pressed1 = false;
+
     SceneManagement scene;
     AudioManager audio;
 
@@ -20,27 +25,57 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        scene.LoadScene("Game");
-        if (audio)
+        if (!pressed)
         {
-            audio.PlayButtonSound();
+            pressed = true;
+            MainMenuAnim.SetTrigger("Fade Out");
+            if (audio)
+            {
+                audio.PlayButtonSound();
+            }
+            Invoke("MainMenuFadeOut", 2);
         }
     }
 
-    public void HowToPlay()
+    public void AbilitiesButton()
     {
-        htpCanvas.SetActive(true);
-        mainMenu.SetActive(false);
-        htpButton.transform.localScale = new Vector3(1f, 1f, 1f);
-        audio.ButtonSound();
+        if (!pressed)
+        {
+            pressed = true;
+            pressed1 = false;
+            MainMenuAnim.SetTrigger("Fade Out");
+            Invoke("AbilitiesFadeIn", 2);
+        }
     }
 
-    public void Back()
+    public void AbilitiesBackButton()
     {
-        htpCanvas.SetActive(false);
-        mainMenu.SetActive(true);
-        back.transform.localScale = new Vector3(1f, 1f, 1f);
-        audio.ButtonSound();
+        if (!pressed1)
+        {
+            pressed = false;
+            pressed1 = true;
+
+            AbilitiesAnim.SetTrigger("Fade Out");
+            Invoke("AbilitiesFadeOut", 2);
+        }
+    }
+
+    void MainMenuFadeOut()
+    {
+        MainMenuCanvas.SetActive(false);
+        SceneManager.LoadScene("Game");
+    }
+
+    void AbilitiesFadeIn()
+    {
+        MainMenuCanvas.SetActive(false);
+        AbilitiesCanvas.SetActive(true);
+    }
+
+    void AbilitiesFadeOut()
+    {
+        MainMenuCanvas.SetActive(true);
+        AbilitiesCanvas.SetActive(false);
     }
 
     public void QuitToMainMenu()
