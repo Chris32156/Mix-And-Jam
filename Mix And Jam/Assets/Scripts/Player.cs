@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         spawn = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();
+        Gold = PlayerPrefs.GetInt("Coins", 0);
 
         startingHealth = startingHealth + PlayerPrefs.GetInt("Health Level", 1);
         shootCooldown = shootCooldown / (1 + 0.05f * (PlayerPrefs.GetInt("Attack Level", 1) - 1));
@@ -285,7 +286,7 @@ public class Player : MonoBehaviour
         // Game Over
         if (currentHealth <= 0)
         {
-            PlayerPrefs.SetInt("Coins", FindObjectOfType<Coins>().NumberOfCoins);
+            PlayerPrefs.SetInt("Coins", Gold);
             rb.velocity = Vector3.zero;
             StartCoroutine(Explode());
             game.isPaused = true;
@@ -321,5 +322,6 @@ public class Player : MonoBehaviour
     {
         Gold += gold;
         GoldText.SetText(Gold.ToString());
+        PlayerPrefs.SetInt("Coins", Gold);
     }
 }
