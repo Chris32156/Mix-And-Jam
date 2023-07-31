@@ -33,7 +33,11 @@ public class Player : MonoBehaviour
     public int score;
     public int Gold = 0;
     public bool isDead = false;
+    public float deadTimer = 5f;
+    public GameObject timerProgressBar;
+    public GameObject GameOverScreen;
 
+    float deadTimerLeft;
     float lastShot = -200;
     float lastSpeedUp = -200;
     float lastHeal = 0;
@@ -52,6 +56,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
+
         game = FindObjectOfType<Game>();
         scene = FindObjectOfType<SceneManagement>();
         audio = FindObjectOfType<AudioManager>();
@@ -59,10 +65,14 @@ public class Player : MonoBehaviour
         spawn = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();
 
+        startingHealth = startingHealth + PlayerPrefs.GetInt("Health Level", 1);
+        shootCooldown = shootCooldown / (1 + 0.05f * (PlayerPrefs.GetInt("Attack Level", 1) - 1));
+
         baseSpeed = joystick.playerSpeed;
         currentHealth = startingHealth;
         LivesText.SetText("X " + currentHealth.ToString());
         GoldText.SetText(Gold.ToString());
+        deadTimerLeft = deadTimer;
 
         speedUpUnlocked = PlayerPrefs.GetInt("SpeedUpUnlock", 0) == 1;
         healUnlocked = PlayerPrefs.GetInt("HealUnlock", 0) == 1;
@@ -83,6 +93,29 @@ public class Player : MonoBehaviour
             KillLock.SetActive(true);
             DisabledKill.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        if (isDead)
+        {
+            deadTimerLeft -= Time.unscaledDeltaTime;
+            if (deadTimerLeft <= 0)
+            {
+                Debug.Log("Afsfsf");
+                scene.LoadScene("Menu");
+            }
+            else
+            {
+                timerProgressBar.transform.localScale = new Vector3(deadTimerLeft / deadTimer, 1, 1);
+            }
+        }
+    }
+
+    public void ContinueButton()
+    {
+        isDead = false;
+        FindObjectOfType<AdsManager>().LoadAd(-1);
     }
 
     // Update is called once per frame
@@ -252,16 +285,18 @@ public class Player : MonoBehaviour
         // Game Over
         if (currentHealth <= 0)
         {
+            PlayerPrefs.SetInt("Coins", FindObjectOfType<Coins>().NumberOfCoins);
             rb.velocity = Vector3.zero;
             StartCoroutine(Explode());
             game.isPaused = true;
             isDead = true;
+            GameOverScreen.SetActive(true);
             if (audio)
             {
                 audio.HitSound();
             }
             PlayerPrefs.SetInt("Score", score);
-            scene.LoadScene("Game Over");
+            Time.timeScale = 0;
         }
         else
         {
@@ -280,7 +315,6 @@ public class Player : MonoBehaviour
         {
             audio.GameOverSound();
         }
-        Destroy(gameObject);
     }
 
     public void AddGold(int gold)

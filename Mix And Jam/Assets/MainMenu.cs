@@ -7,11 +7,14 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject MainMenuCanvas;
     public GameObject AbilitiesCanvas;
+    public GameObject BuildCanvas;
     public Animator MainMenuAnim;
     public Animator AbilitiesAnim;
+    public Animator BuildAnim;
 
     bool pressed = false;
     bool pressed1 = false;
+    bool pressed2 = false;
 
     SceneManagement scene;
     AudioManager audio;
@@ -21,12 +24,15 @@ public class MainMenu : MonoBehaviour
     {
         scene = FindObjectOfType<SceneManagement>();
         audio = FindObjectOfType<AudioManager>();
+
+        Time.timeScale = 1;
     }
 
     public void PlayButton()
     {
         if (!pressed)
         {
+            PlayerPrefs.SetInt("StartingAmmount", 1);
             pressed = true;
             MainMenuAnim.SetTrigger("Fade Out");
             if (audio)
@@ -60,6 +66,29 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void BuildButton()
+    {
+        if (!pressed)
+        {
+            pressed = true;
+            pressed2 = false;
+            MainMenuAnim.SetTrigger("Fade Out");
+            Invoke("BuildFadeIn", 2);
+        }
+    }
+
+    public void BuildBackButton()
+    {
+        if (!pressed2)
+        {
+            pressed = false;
+            pressed2 = true;
+
+            BuildAnim.SetTrigger("Fade Out");
+            Invoke("BuildFadeOut", 2);
+        }
+    }
+
     void MainMenuFadeOut()
     {
         MainMenuCanvas.SetActive(false);
@@ -70,6 +99,18 @@ public class MainMenu : MonoBehaviour
     {
         MainMenuCanvas.SetActive(false);
         AbilitiesCanvas.SetActive(true);
+    }
+
+    void BuildFadeIn()
+    {
+        MainMenuCanvas.SetActive(false);
+        BuildCanvas.SetActive(true);
+    }
+
+    void BuildFadeOut()
+    {
+        MainMenuCanvas.SetActive(true);
+        BuildCanvas.SetActive(false);
     }
 
     void AbilitiesFadeOut()

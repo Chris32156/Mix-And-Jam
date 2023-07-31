@@ -28,6 +28,7 @@ public class Coins : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NumberOfCoins = PlayerPrefs.GetInt("Coins", 0);
         AttackLevel = PlayerPrefs.GetInt("Attack Level", 1);
         SpeedLevel = PlayerPrefs.GetInt("Speed Level", 1);
         HealthLevel = PlayerPrefs.GetInt("Health Level", 1);
@@ -39,6 +40,7 @@ public class Coins : MonoBehaviour
     public void InitalizeValues()
     {
         CoinsText.SetText(NumberOfCoins.ToString());
+        PlayerPrefs.SetInt("Coins", FindObjectOfType<Coins>().NumberOfCoins);
 
         AttackLevelText.SetText("LV " + AttackLevel.ToString());
         AttackCoinText.SetText((AttackLevel * 100).ToString());
@@ -127,5 +129,10 @@ public class Coins : MonoBehaviour
             PlayerPrefs.SetInt("SkullstormUnlock", 1);
             InitalizeValues();
         }
+    }
+
+    public void ShipBought()
+    {
+
     }
 }

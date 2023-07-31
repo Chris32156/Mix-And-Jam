@@ -17,7 +17,7 @@ public class SceneManagement : MonoBehaviour
     IEnumerator LoadScene()
     {
         transitions.SetTrigger("End");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         SceneManager.LoadScene(sceneName);
     }
 }

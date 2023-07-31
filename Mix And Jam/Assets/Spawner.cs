@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public GameObject Boss1;
     public GameObject Boss2;
     public GameObject Boss3;
+    public GameObject Chest;
     public TextMeshProUGUI WaveText;
     public int CurrentWave;
 
@@ -18,6 +19,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startingAmmount = PlayerPrefs.GetInt("StartingAmmount", 1);
         CurrentWave = startingAmmount;
         player = FindObjectOfType<Player>();
 
@@ -28,6 +30,11 @@ public class Spawner : MonoBehaviour
     {
         var enemies = FindObjectsOfType<Enemy>();
         int numOfEnemies = 0;
+
+        if (Random.Range(1, 100) < 5 && FindObjectsOfType<Chest>().Length == 0)
+        {
+            Instantiate(Chest);
+        }
 
         foreach (Enemy Enemy in enemies)
         {

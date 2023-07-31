@@ -16,6 +16,7 @@ public class JoystickMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Player = FindObjectOfType<Player>();
+        playerSpeed = playerSpeed * (1 + (PlayerPrefs.GetInt("Speed Level", 1) - 1) * 0.05f);
     }
 
     // Update is called once per frame
